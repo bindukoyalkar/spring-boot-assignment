@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add/Update Category</title>
+    <style>
+        .error {color:red}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Taj Restaurant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"
+                       th:href="@{/cart/viewCart}">Cart</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item ">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <h3 class="col-xs-1 text-center" >Add/Update Category</h3>
+    <br>
+    <div class = "row">
+        <div class = "col-md-6 col-md-offset-3">
+    <form action="#" th:action="@{/admin/categories/save}"
+          th:object="${category}" method="POST">
+        <input type="hidden" th:field="*{id}" />
+        <input type="text" th:field="*{name}" placeholder="Category Name"
+               class="form-control mb-4 col-4">
+        <p  th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}">
+            cannot be null</p>
+        <errors path="name" cssClass="error" />
+        <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+<br>
+    <br>
+    <a th:href="@{/admin/categories}">Back to previous Page</a>
+        </div>
+</div>
+</div>
+</body>
+</html>

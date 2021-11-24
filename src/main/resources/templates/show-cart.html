@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org" lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>Home</title>
+</head>
+<body>
+<div class="container">
+  <br>
+  <h3 style="text-align:center">Cart Details</h3>
+  <br>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th>Dish Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Remove Item</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="temp,iStat : ${cart.keySet()}">
+      <td  th:text="${temp.dishName}" />
+    <!--  <td  th:text="${temp.category.name}" />-->
+      <td  th:text="${temp.price}"></td>
+      <td th:text="${cart.get(temp)}"></td>
+      <!-- <td><form action="@{/updateQuantity(id=${iStat.index})}">
+
+                    <input type="number"
+                            th:value="${temp.quantity}" id="quantity" name="quantity">
+                       </form>
+                     </td>-->
+      <td>
+        <a th:href="@{/cart/delete/{id}(id=${temp.dishId})}" >Remove from Cart</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <h4>Total is:</h4>
+  <p th:text="${total}"></p>
+  <a th:href="@{/home}">Back to previous Page</a>
+</div>
+</body>
+</html>
+<!--
+th:href="@{/cart/delete(dishId=${tempDish.dishId})}
+th:href="@{/cart/delete/{id}(id=${cart.index})-->

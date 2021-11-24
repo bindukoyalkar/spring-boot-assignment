@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add/Update Dish</title>
+    <style>
+        .error {color:red}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Taj Restaurant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"
+                       th:href="@{/cart/viewCart}">Cart</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item ">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <h3 class="col-xs-1 text-center" >Add/Update Dish</h3>
+    <br>
+        <form action="#" th:action="@{/admin/menus/save}" th:object="${productDTO}" method="POST">
+            <input type="hidden" th:field="*{dishId}" />
+
+            <input type="text" th:field="*{dishName}" placeholder="Dish Name"
+                   class="form-control mb-4 col-4">
+            <p  th:if="${#fields.hasErrors('dishName')}" th:errorclass="error" th:errors="*{dishName}">
+                cannot be null</p>
+
+                <label >Select Category</label>
+                <select class="input-medium"
+                         th:field="*{categoryId}" id="category" name="category">
+                    <option th:each="category :${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                    ></option>
+                </select>
+            <br><br>
+
+            <label for="category">Price</label>
+            <input type="text" th:field="*{price}" placeholder="Price"
+                   class="form-control mb-4 col-4">
+            <p  th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}">
+                cannot be null</p>
+
+           <!-- <label for="category">Quantity</label>
+            <input type="text" th:field="*{quantity}" placeholder="Quantity"
+                   class="form-control mb-4 col-4">
+            <p  th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}">
+                cannot be null</p>-->
+
+            <label>Description</label><br>
+            <textarea th:field="*{description}" rows="4" cols="50">Description</textarea><br>
+            <p  th:if="${#fields.hasErrors('description')}" th:errorclass="error"
+                th:errors="*{description}">
+                cannot be null</p>
+            <button type="submit" class="btn btn-info col-2">Save</button>
+        </form>
+    <br>
+    <a th:href="@{/admin/menus}">Back to previous Page</a>
+    </div>
+</body>
+</html>

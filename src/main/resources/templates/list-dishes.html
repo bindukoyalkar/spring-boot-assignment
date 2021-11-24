@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Menu List</title>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Taj Restaurant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"
+                       th:href="@{/cart/viewCart}">Cart</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item ">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Taj Restaurant Menu</h1>
+            <p class="lead">food which tastes like heaven</p>
+        </div>
+    </div>
+    <a th:href="@{/admin/menus/add}" class="btn btn-primary btn-sm mb-3">Add Dish</a>
+
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Dish Name</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="temp : ${menu}">
+            <td  th:text="${temp.dishName}" />
+            <td  th:text="${temp.category.name}" />
+           <td>
+               <a th:href="@{/admin/menus/showFormForUpdate(dishId=${temp.dishId})}"
+                   class="btn btn-info btn-sm" >
+                    Update
+                </a>
+
+                <a th:href="@{/admin/menus/delete(dishId=${temp.dishId})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('Are you sure you want to delete this dish?')))
+                    return false">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/home}">Back to previous Page</a>
+</div>
+</body>
+</html>
