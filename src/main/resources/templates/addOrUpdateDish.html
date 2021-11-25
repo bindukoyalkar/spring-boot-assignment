@@ -39,7 +39,7 @@
     <br>
     <h3 class="col-xs-1 text-center" >Add/Update Dish</h3>
     <br>
-        <form action="#" th:action="@{/admin/menus/save}" th:object="${productDTO}" method="POST">
+        <form action="#" th:action="@{/admin/menus/save}" th:object="${dishDTO}" method="POST">
             <input type="hidden" th:field="*{dishId}" />
 
             <input type="text" th:field="*{dishName}" placeholder="Dish Name"
