@@ -25,6 +25,9 @@ public class AdminController {
     @Autowired
     private MenuService menuService;
 
+    private static final String addOrUpdateDish ="addOrUpdateDish";
+    private static final String addOrUpdateCategory="addOrUpdateCategory";
+
     @GetMapping("/admin")
     public String adminHome(){
         return "adminHome";
@@ -41,14 +44,14 @@ public class AdminController {
     public String addCategory(Model theModel){
         Category category = new Category();
         theModel.addAttribute("category",category);
-        return "addOrUpdateCategory";
+        return addOrUpdateCategory;
     }
 
     @PostMapping("/admin/categories/save")
     public String saveCategory(@Valid @ModelAttribute("category") Category theCategory,
                                BindingResult theBindingResult){
         if(theBindingResult.hasErrors()){
-            return "addOrUpdateCategory";
+            return addOrUpdateCategory;
         }
         else {
             categoryService.saveCategory(theCategory);
@@ -60,7 +63,7 @@ public class AdminController {
     public String updateCategory(@RequestParam("id") int id, Model theModel){
         Category theCategory= categoryService.getCategoryById(id);
         theModel.addAttribute("category",theCategory);
-        return "addOrUpdateCategory";
+        return addOrUpdateCategory;
     }
 
     @GetMapping("/admin/categories/delete")
@@ -80,7 +83,7 @@ public class AdminController {
     public String addDish(Model theModel){
         theModel.addAttribute("productDTO",new ProductDTO());
         theModel.addAttribute("categories",categoryService.getAllCategories());
-        return "addOrUpdateDish";
+        return addOrUpdateDish;
     }
 
     @PostMapping("/admin/menus/save")
@@ -89,7 +92,7 @@ public class AdminController {
         if(theBindingResult.hasErrors()){
             theModel.addAttribute("productDTO",productDTO);
             theModel.addAttribute("categories",categoryService.getAllCategories());
-            return "addOrUpdateDish";
+            return addOrUpdateDish;
         }
         else {
             Menu menu = new Menu();
@@ -116,7 +119,7 @@ public class AdminController {
         productDTO.setDescription(theDish.getDescription());
         theModel.addAttribute("productDTO",productDTO);
         theModel.addAttribute("categories",categoryService.getAllCategories());
-        return "addOrUpdateDish";
+        return addOrUpdateDish;
     }
 
     @GetMapping("/admin/menus/delete")
