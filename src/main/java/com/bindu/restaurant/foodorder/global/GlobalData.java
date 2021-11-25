@@ -6,6 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class GlobalData {
+    private GlobalData(){
+
+    }
+
     public static final Map<Menu,Integer> cart;
 
     static{
