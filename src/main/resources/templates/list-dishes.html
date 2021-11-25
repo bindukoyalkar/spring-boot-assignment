@@ -53,8 +53,8 @@
         </thead>
         <tbody>
         <tr th:each="temp : ${menu}">
-            <td  th:text="${temp.dishName}" />
-            <td  th:text="${temp.category.name}" />
+            <td  th:text="${temp.dishName}" ></td>
+            <td  th:text="${temp.category.name}" ></td>
            <td>
                <a th:href="@{/admin/menus/showFormForUpdate(dishId=${temp.dishId})}"
                    class="btn btn-info btn-sm" >

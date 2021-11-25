@@ -63,12 +63,6 @@
             <p  th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}">
                 cannot be null</p>
 
-           <!-- <label for="category">Quantity</label>
-            <input type="text" th:field="*{quantity}" placeholder="Quantity"
-                   class="form-control mb-4 col-4">
-            <p  th:if="${#fields.hasErrors('quantity')}" th:errorclass="error" th:errors="*{quantity}">
-                cannot be null</p>-->
-
             <label>Description</label><br>
             <textarea th:field="*{description}" rows="4" cols="50">Description</textarea><br>
             <p  th:if="${#fields.hasErrors('description')}" th:errorclass="error"

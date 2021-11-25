@@ -25,17 +25,12 @@
     </tr>
     </thead>
     <tbody>
+
     <tr th:each="temp,iStat : ${cart.keySet()}">
       <td  th:text="${temp.dishName}" />
     <!--  <td  th:text="${temp.category.name}" />-->
       <td  th:text="${temp.price}"></td>
       <td th:text="${cart.get(temp)}"></td>
-      <!-- <td><form action="@{/updateQuantity(id=${iStat.index})}">
-
-                    <input type="number"
-                            th:value="${temp.quantity}" id="quantity" name="quantity">
-                       </form>
-                     </td>-->
       <td>
         <a th:href="@{/cart/delete/{id}(id=${temp.dishId})}" >Remove from Cart</a>
       </td>
@@ -44,10 +39,10 @@
   </table>
   <h4>Total is:</h4>
   <p th:text="${total}"></p>
+  <br>
+  <br>
   <a th:href="@{/home}">Back to previous Page</a>
 </div>
 </body>
 </html>
-<!--
-th:href="@{/cart/delete(dishId=${tempDish.dishId})}
-th:href="@{/cart/delete/{id}(id=${cart.index})-->
+

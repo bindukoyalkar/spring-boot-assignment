@@ -79,46 +79,12 @@
                         <td  th:text="${temp.category.name}" />
                         <td  th:text="${temp.price}"></td>
                         <td th:text="${temp.quantity}"></td>
-                     <!-- <td><form action="@{/updateQuantity(id=${temp.dishId})}">
-
-                     <input type="number"
-                             th:value="${temp.quantity}" id="quantity" name="quantity">
-                        </form>
-                      </td>-->
-                        <!--<td>
-                            <input type="text" th:field="*{temp.quantity}" >
-                        </td>-->
                         <td>
                             <a th:href="@{/cart/add/{id}(id=${temp.dishId})}"> Add To Cart</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-<!--<table sec:authorize="hasRole('USER')" class="table table-hover table-bordered">
-    <thead class="thead-dark">
-    <tr>
-        <th>Dish Name</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="temp : ${dishes}">
-        <td  th:text="${temp.dishName}" />
-        <td  th:text="${temp.category.name}" />
-        <td  th:text="${temp.price}"></td>
-        <td  th:text="${temp.quantity}"></td>
-        &lt;!&ndash;<td>
-            <input type="number" th:number="${temp.quantity}" >
-        </td>&ndash;&gt;
-        <td>
-            <a th:href="@{/cart/add/{id}(id=${temp.dishId})}"> Add To Cart</a>
-        </td>
-    </tr>
-    </tbody>
-</table>-->
 
     <div sec:authorize="hasRole('ADMIN')" class="container">
         <div class="row">
@@ -131,8 +97,8 @@
         </div>
     </div>
 </div>
-        </div>
-    </div>
+</div>
+</div>
 </div>
 
 </body>

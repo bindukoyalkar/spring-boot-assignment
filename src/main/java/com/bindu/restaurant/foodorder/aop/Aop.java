@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 @Aspect
 @Component
-public class Aop {
+public class Aop{
     private static final Logger logger = Logger.getLogger(Aop.class.getName());
 
     @Pointcut("execution(* com.bindu.restaurant.foodorder.service.*.save*(..))")

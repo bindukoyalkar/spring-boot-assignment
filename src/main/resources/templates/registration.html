@@ -21,6 +21,7 @@
 				<div th:if="${param.success}">
 					<div class="alert alert-info">You've successfully registered</div>
 				</div>
+
 				<form th:action="@{/registration}" method="post" th:object="${user}">
 										<div class="form-group">
 						<label class="control-label" for="username"> Username </label> <input
