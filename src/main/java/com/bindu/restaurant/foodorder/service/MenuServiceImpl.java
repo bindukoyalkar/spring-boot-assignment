@@ -4,6 +4,8 @@ import com.bindu.restaurant.foodorder.dao.CategoryRepository;
 import com.bindu.restaurant.foodorder.dao.MenuRepository;
 import com.bindu.restaurant.foodorder.entity.Category;
 import com.bindu.restaurant.foodorder.entity.Menu;
+import com.bindu.restaurant.foodorder.exceptions.CategoryNotFoundException;
+import com.bindu.restaurant.foodorder.exceptions.DishNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class MenuServiceImpl implements MenuService{
             dish = result.get();
         }
         else{
-            throw new RuntimeException("Did not find dish id - "+id);
+            throw new DishNotFoundException("Did not find dish with id - "+id);
         }
         return dish;
     }
@@ -49,10 +51,9 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public List<Menu> getAllDishesOfCategory(int id) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
-        Category category= null;
         if(optionalCategory.isPresent())
-            return menuRepository.findAllByCategory_Id(id);
+            return menuRepository.findAllByCategoryId(id);
         else
-            throw new  RuntimeException("Did not find Category with id - "+id);
+            throw new CategoryNotFoundException("Did not find Category with id - "+id);
     }
 }

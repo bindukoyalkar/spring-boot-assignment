@@ -2,6 +2,7 @@ package com.bindu.restaurant.foodorder.service;
 
 import com.bindu.restaurant.foodorder.dao.CategoryRepository;
 import com.bindu.restaurant.foodorder.entity.Category;
+import com.bindu.restaurant.foodorder.exceptions.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService{
             category= result.get();
         }
         else{
-            throw new RuntimeException("No such category is present");
+            throw new CategoryNotFoundException("No such category is present");
         }
         return category;
     }
