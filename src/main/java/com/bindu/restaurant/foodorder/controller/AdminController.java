@@ -2,6 +2,7 @@ package com.bindu.restaurant.foodorder.controller;
 
 import com.bindu.restaurant.foodorder.dto.ProductDTO;
 import com.bindu.restaurant.foodorder.entity.Category;
+import com.bindu.restaurant.foodorder.entity.CategoryDTO;
 import com.bindu.restaurant.foodorder.entity.Menu;
 import com.bindu.restaurant.foodorder.service.CategoryService;
 import com.bindu.restaurant.foodorder.service.MenuService;
@@ -42,19 +43,22 @@ public class AdminController {
 
     @GetMapping("/admin/categories/add")
     public String addCategory(Model theModel){
-        Category category = new Category();
-        theModel.addAttribute("category",category);
+        theModel.addAttribute("category",new CategoryDTO());
         return SAVECATEGORY;
     }
 
     @PostMapping("/admin/categories/save")
-    public String saveCategory(@Valid @ModelAttribute("category") Category theCategory,
-                               BindingResult theBindingResult){
+    public String saveCategory(@Valid @ModelAttribute("category") CategoryDTO categoryDTO,
+                               BindingResult theBindingResult,Model theModel){
         if(theBindingResult.hasErrors()){
+            theModel.addAttribute("category",categoryDTO);
             return SAVECATEGORY;
         }
         else {
-            categoryService.saveCategory(theCategory);
+            Category category = new Category();
+            category.setId(categoryDTO.getId());
+            category.setName(categoryDTO.getName());
+            categoryService.saveCategory(category);
             return "redirect:/admin/categories";
         }
     }
@@ -62,7 +66,10 @@ public class AdminController {
     @GetMapping("/admin/categories/update")
     public String updateCategory(@RequestParam("id") int id, Model theModel){
         Category theCategory= categoryService.getCategoryById(id);
-        theModel.addAttribute("category",theCategory);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(theCategory.getId());
+        categoryDTO.setName(theCategory.getName());
+        theModel.addAttribute("category",categoryDTO);
         return SAVECATEGORY;
     }
 
