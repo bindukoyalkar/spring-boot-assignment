@@ -45,4 +45,10 @@ public class CartController {
         GlobalData.cart.remove(menu);
         return "redirect:/cart/viewCart";
     }
+
+    @GetMapping("/placeOrder")
+    public String placeOrder() {
+        GlobalData.cart.clear();
+        return "redirect:/cart/viewCart";
+    }
 }

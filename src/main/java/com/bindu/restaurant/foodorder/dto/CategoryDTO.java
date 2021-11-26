@@ -1,4 +1,4 @@
-package com.bindu.restaurant.foodorder.entity;
+package com.bindu.restaurant.foodorder.dto;
 
 public class CategoryDTO {
     private int id;

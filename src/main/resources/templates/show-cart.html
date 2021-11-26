@@ -40,6 +40,9 @@
   <h4>Total is:</h4>
   <p th:text="${total}"></p>
   <br>
+  <button type="button" class="btn btn-outline-primary btn-lg"> <a th:href="@{/cart/placeOrder}"
+     onclick="if (!(confirm('Are you sure you want to place the order?')))
+                    return false">Place Order </a> </button>
   <br>
   <a th:href="@{/home}">Back to previous Page</a>
 </div>

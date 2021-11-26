@@ -2,7 +2,7 @@ package com.bindu.restaurant.foodorder.controller;
 
 import com.bindu.restaurant.foodorder.dto.DishDTO;
 import com.bindu.restaurant.foodorder.entity.Category;
-import com.bindu.restaurant.foodorder.entity.CategoryDTO;
+import com.bindu.restaurant.foodorder.dto.CategoryDTO;
 import com.bindu.restaurant.foodorder.entity.Menu;
 import com.bindu.restaurant.foodorder.service.CategoryService;
 import com.bindu.restaurant.foodorder.service.MenuService;

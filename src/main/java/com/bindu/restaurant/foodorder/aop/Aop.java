@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 public class Aop{
     private static final Logger logger = Logger.getLogger(Aop.class.getName());
 
-    @Before("execution(* com.bindu.restaurant.foodorder.service.*.save*(..))")
+    @Before("execution(* com.bindu.restaurant.foodorder.service.*.find*(..))")
     public void performAop(){
        logger.info("\n=======>>> " +
-                "executing @Before advice on save methods");
+                "executing @Before advice on find methods");
     }
 }
