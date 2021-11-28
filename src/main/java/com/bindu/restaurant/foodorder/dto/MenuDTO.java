@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class DishDTO {
+public class MenuDTO {
 
     private int dishId;
 
@@ -19,7 +19,7 @@ public class DishDTO {
     private int categoryId;
 
     @NotNull
-    @Min(value = 0,message = "price should be greater than 0")
+    @Min(value = 50,message = "price should be greater than 50")
     private double price;
 
     @NotNull

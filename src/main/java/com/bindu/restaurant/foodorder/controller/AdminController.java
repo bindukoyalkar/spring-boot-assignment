@@ -1,6 +1,6 @@
 package com.bindu.restaurant.foodorder.controller;
 
-import com.bindu.restaurant.foodorder.dto.DishDTO;
+import com.bindu.restaurant.foodorder.dto.MenuDTO;
 import com.bindu.restaurant.foodorder.entity.Category;
 import com.bindu.restaurant.foodorder.dto.CategoryDTO;
 import com.bindu.restaurant.foodorder.entity.Menu;
@@ -26,8 +26,8 @@ public class AdminController {
     @Autowired
     private MenuService menuService;
 
-    private static final String SAVEDISH ="addOrUpdateDish";
-    private static final String SAVECATEGORY="addOrUpdateCategory";
+    private static final String SAVE_DISH ="addOrUpdateDish";
+    private static final String SAVE_CATEGORY ="addOrUpdateCategory";
     private static final String CATEGORIES="categories";
     private static final String CATEGORY="category";
     private static final String DISHDTO="dishDTO";
@@ -47,7 +47,7 @@ public class AdminController {
     @GetMapping("/admin/categories/add")
     public String addCategory(Model theModel){
         theModel.addAttribute(CATEGORY,new CategoryDTO());
-        return SAVECATEGORY;
+        return SAVE_CATEGORY;
     }
 
     @PostMapping("/admin/categories/save")
@@ -55,7 +55,7 @@ public class AdminController {
                                BindingResult theBindingResult,Model theModel){
         if(theBindingResult.hasErrors()){
             theModel.addAttribute(CATEGORY,categoryDTO);
-            return SAVECATEGORY;
+            return SAVE_CATEGORY;
         }
         else {
             Category category = new Category();
@@ -73,7 +73,7 @@ public class AdminController {
         categoryDTO.setId(theCategory.getId());
         categoryDTO.setName(theCategory.getName());
         theModel.addAttribute(CATEGORY,categoryDTO);
-        return SAVECATEGORY;
+        return SAVE_CATEGORY;
     }
 
     @GetMapping("/admin/categories/delete")
@@ -91,18 +91,18 @@ public class AdminController {
 
     @GetMapping("/admin/menus/add")
     public String addDish(Model theModel){
-        theModel.addAttribute(DISHDTO,new DishDTO());
+        theModel.addAttribute(DISHDTO,new MenuDTO());
         theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-        return SAVEDISH;
+        return SAVE_DISH;
     }
 
     @PostMapping("/admin/menus/save")
-    public String saveMenu(@Valid @ModelAttribute("dishDTO") DishDTO dishDTO,
+    public String saveMenu(@Valid @ModelAttribute("dishDTO") MenuDTO dishDTO,
                            BindingResult theBindingResult,Model theModel){
         if(theBindingResult.hasErrors()){
             theModel.addAttribute(DISHDTO,dishDTO);
             theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-            return SAVEDISH;
+            return SAVE_DISH;
         }
         else {
             Menu menu = new Menu();
@@ -120,7 +120,7 @@ public class AdminController {
     @GetMapping("/admin/menus/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("dishId") int theId, Model theModel){
         Menu theDish=menuService.findById(theId);
-        DishDTO dishDTO= new DishDTO();
+        MenuDTO dishDTO= new MenuDTO();
         dishDTO.setDishId(theDish.getDishId());
         dishDTO.setDishName(theDish.getDishName());
         dishDTO.setCategoryId(theDish.getCategory().getId());
@@ -129,7 +129,7 @@ public class AdminController {
         dishDTO.setDescription(theDish.getDescription());
         theModel.addAttribute(DISHDTO,dishDTO);
         theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-        return SAVEDISH;
+        return SAVE_DISH;
     }
 
     @GetMapping("/admin/menus/delete")

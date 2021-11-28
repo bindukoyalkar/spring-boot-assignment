@@ -28,7 +28,7 @@ public class Menu {
     private Category category;
 
     @NotNull
-    @Min(0)
+    @Min(50)
     private double price;
 
     @NotNull
@@ -43,5 +43,15 @@ public class Menu {
         this.price = price;
         this.quantity = quantity;
         this.description = description;
+    }
+
+    public Menu(int dishId, String dishName, double price, int quantity, String description,
+                Category category){
+        this.dishId = dishId;
+        this.dishName = dishName;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.category=category;
     }
 }
