@@ -31,7 +31,14 @@ public class UserRegistrationController {
 	
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-		userService.save(registrationDto);
-		return "redirect:/registration?success";
+		String password=registrationDto.getPassword();
+		String confirmPassword=registrationDto.getConfirmPassword();
+		if(!password.equals(confirmPassword)){
+			return "redirect:/registration?failure";
+		}
+		else {
+			userService.save(registrationDto);
+			return "redirect:/registration?success";
+		}
 	}
 }

@@ -17,12 +17,4 @@ class AdminControllerTest {
         Assertions.assertEquals("adminHome",response);
     }
 
-   /* @Test
-    void addDish(){
-        Model model = null;
-        AdminController adminController = new AdminController();
-        String response = adminController.addDish(model);
-        Assertions.assertEquals("addOrUpdateDish",response);
-    }*/
-
 }

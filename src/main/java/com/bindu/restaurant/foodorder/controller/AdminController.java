@@ -26,11 +26,11 @@ public class AdminController {
     @Autowired
     private MenuService menuService;
 
-    private static final String SAVE_DISH ="addOrUpdateDish";
     private static final String SAVE_CATEGORY ="addOrUpdateCategory";
     private static final String CATEGORIES="categories";
     private static final String CATEGORY="category";
-    private static final String DISHDTO="dishDTO";
+    private static final String MENU_DTO ="menuDTO";
+    private static final String SAVE_MENU ="addOrUpdateMenu";
 
     @GetMapping("/admin")
     public String adminHome(){
@@ -39,8 +39,8 @@ public class AdminController {
 
     @GetMapping("/admin/categories")
     public String getCategories(Model theModel){
-        List<Category> categoryList= categoryService.getAllCategories();
-        theModel.addAttribute(CATEGORIES,categoryList);
+        List<Category> allCategories= categoryService.getAllCategories();
+        theModel.addAttribute(CATEGORIES,allCategories);
         return CATEGORIES;
     }
 
@@ -91,27 +91,27 @@ public class AdminController {
 
     @GetMapping("/admin/menus/add")
     public String addDish(Model theModel){
-        theModel.addAttribute(DISHDTO,new MenuDTO());
+        theModel.addAttribute(MENU_DTO,new MenuDTO());
         theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-        return SAVE_DISH;
+        return SAVE_MENU;
     }
 
     @PostMapping("/admin/menus/save")
-    public String saveMenu(@Valid @ModelAttribute("dishDTO") MenuDTO dishDTO,
+    public String saveMenu(@Valid @ModelAttribute("menuDTO") MenuDTO menuDTO,
                            BindingResult theBindingResult,Model theModel){
         if(theBindingResult.hasErrors()){
-            theModel.addAttribute(DISHDTO,dishDTO);
+            theModel.addAttribute(MENU_DTO,menuDTO);
             theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-            return SAVE_DISH;
+            return SAVE_MENU;
         }
         else {
             Menu menu = new Menu();
-            menu.setDishId(dishDTO.getDishId());
-            menu.setDishName(dishDTO.getDishName());
-            menu.setCategory(categoryService.getCategoryById(dishDTO.getCategoryId()));
-            menu.setPrice(dishDTO.getPrice());
+            menu.setDishId(menuDTO.getDishId());
+            menu.setDishName(menuDTO.getDishName());
+            menu.setCategory(categoryService.getCategoryById(menuDTO.getCategoryId()));
+            menu.setPrice(menuDTO.getPrice());
             menu.setQuantity(1);
-            menu.setDescription(dishDTO.getDescription());
+            menu.setDescription(menuDTO.getDescription());
             menuService.save(menu);
             return "redirect:/admin/menus";
         }
@@ -119,17 +119,17 @@ public class AdminController {
 
     @GetMapping("/admin/menus/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("dishId") int theId, Model theModel){
-        Menu theDish=menuService.findById(theId);
-        MenuDTO dishDTO= new MenuDTO();
-        dishDTO.setDishId(theDish.getDishId());
-        dishDTO.setDishName(theDish.getDishName());
-        dishDTO.setCategoryId(theDish.getCategory().getId());
-        dishDTO.setPrice(theDish.getPrice());
-        dishDTO.setQuantity(1);
-        dishDTO.setDescription(theDish.getDescription());
-        theModel.addAttribute(DISHDTO,dishDTO);
+        Menu theMenu=menuService.findById(theId);
+        MenuDTO menuDTO= new MenuDTO();
+        menuDTO.setDishId(theMenu.getDishId());
+        menuDTO.setDishName(theMenu.getDishName());
+        menuDTO.setCategoryId(theMenu.getCategory().getId());
+        menuDTO.setPrice(theMenu.getPrice());
+        menuDTO.setQuantity(1);
+        menuDTO.setDescription(theMenu.getDescription());
+        theModel.addAttribute(MENU_DTO,menuDTO);
         theModel.addAttribute(CATEGORIES,categoryService.getAllCategories());
-        return SAVE_DISH;
+        return SAVE_MENU;
     }
 
     @GetMapping("/admin/menus/delete")
